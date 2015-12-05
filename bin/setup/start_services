@@ -1,9 +1,0 @@
-#!/bin/bash
-
-sudo systemctl start nginx.service
-sudo nginx -s reload
-sudo supervisorctl reread
-sudo supervisorctl update
-sudo supervisorctl reread
-sudo supervisorctl start nosferatu:celery
-sudo supervisorctl start nosferatu:gunicorn

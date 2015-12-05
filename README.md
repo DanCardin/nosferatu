@@ -1,50 +1,40 @@
 # Nosferatu
 
-Nosferatu is a home automation webapp written in python and coffeescript using Flask, and angular
+Nosferatu is a webapp for home automation written in python3 (Flask) and coffeescript (angular).
+
+The app is used to control the status of various local devices over WiFi. Any recognized device can be turned on/off and otherwise controlled manually or though the use of rules and schedules that control when and why they change state.
 
 ----
 
 ## Quick Start
 
-Append the following to your `.bashrc`, then run `source ~/.bashrc`
+    # The commands to install Nosferatu's dependencies are as follows:
+    sudo apt-get install build-essential python3-dev libpq-dev libffi-dev postgresql postgresql-contrib coffeescript ruby
+    sudo gem install sass
 
-    export WORKON_HOME=~/.virtualenvs
-    VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'
-    PROJECT_HOME='/home/capstone/Capstone'
-    source /usr/local/bin/virtualenvwrapper.sh
+    # postgres should be used to create a database and a local `config.py` through something like...
+    sudo -u postgres createdb nosferatu
 
-To set up all of the prerequisites for running **Nosferatu**, run the following commands:
+    # now your local settings file should be created like so...
+    mkdir -p var/nosferatu-instance
+    touch var/nosferatu-instance/config.py
 
-    sudo adduser capstone -q
-    sudo adduser capstone sudo -q
-    su - capstone
-    wget https://raw.githubusercontent.com/cojoigo/Capstone/master/nosferatu/bin/initial_configuration
-    chmod u+x initial_configuration
-    ./initial_configuration
-    rm initial_configuration -f
-    cd Capstone/nosferatu/
-    mkdir instance
-    cd instance
-    bash -c 'cat << "EOF" > config.py
-    SECRET_KEY = 'this-really-needs-to-be-changed'
-    SQLALCHEMY_DATABASE_URI = 'postgresql:///nosferatu'
-    PROPAGATE_EXCEPTIONS = True
-    EOF'
+    # Inside this file you can put any local overrides to configuration for the app.
+    # This includes the following two required pieces of configuration.
+    #     SECRET_KEY = 'some-secret-key-here!'
+    #     SQLALCHEMY_DATABASE_URI = 'postgresql:///nameOfDatabase' # if you used the command above, it would be `nosferatu`!
 
+    # Create the virtual environment
+    virtualenv --no-site-packages --distribute .
 
-\***Note**\* This command will prompt you a number of times throughout the process, and will have the side effect of creating a new **capstone** `sudo` user
+    # Activate the virtualenv
+    source bin/activate
 
-----
-At this point, you should be able to start the webapp by running (though it *should* already be running)
+    # To install the app you can run.
+    python setup.py install
 
-    sudo supervisorctl restart nosferatu:celery
-    sudo supervisorctl restart nosferatu:gunicorn
+    # You should be able to upgrade the database to the most recent version through running
+    python manage.py db upgrade
 
-
-## Development
-In order to develop on **Nosferatu**:
-
- - Log on to the `capstone` user
- - Run `workon nosferatu`
- - Run `cd ~/Capstone/nosferatu`
- - And start working!
+    # Finally run the server by calling (and then navigating to `127.0.0.1:5000`)
+    python manage.py runserver

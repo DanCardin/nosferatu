@@ -1,6 +1,5 @@
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
-import os
 
 from nosferatu import app, db
 
@@ -11,4 +10,3 @@ manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
     manager.run()
-

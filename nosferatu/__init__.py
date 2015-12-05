@@ -26,8 +26,10 @@ from .scheduler import schedule_rules
 from .tasks import *
 from .views import *
 
-environment.init_app(app)
 db_adaptor = SQLAlchemyAdapter(db, User)
 user_manager = UserManager(db_adaptor, app)
-schedule_rules(schedule)
-schedule.start()
+environment.init_app(app)
+
+if __name__ == '__main__':
+    schedule_rules(schedule)
+    schedule.start()

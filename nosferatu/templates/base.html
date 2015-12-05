@@ -43,7 +43,7 @@
           </ul>
           {% endblock %}
         <ul class="right">
-          {% if current_user.is_authenticated() %}
+          {% if current_user.is_authenticated %}
             <li><a href="">{{ current_user.email }}</a></li>
             <li class="divider"></li>
             <li><a href="{{ url_for('user.logout') }}">Sign out</a></li>

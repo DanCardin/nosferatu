@@ -1,15 +1,15 @@
 from datetime import timedelta
 
+
 APP_NAME = 'Nosferatu'
 DEBUG = False
 CSRF_ENABLED = True
 REMEMBER_COOKIE_DURATION = timedelta(days=3)
+SQLALCHEMY_TRACK_MODIFICATIONS = False
 TESTING = False
-
 
 # Flask-User Config
 USER_APP_NAME = 'Nosferatu'
-# USER_AFTER_LOGIN_ENDPOINT = '/'
 USER_ENABLE_CONFIRM_EMAIL = False
 USER_ENABLE_EMAIL = True
 USER_ENABLE_FORGOT_PASSWORD = False
